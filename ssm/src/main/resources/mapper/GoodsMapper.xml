@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoshu.dao.GoodsMapper">
+  
+  	<select id="findList" resultType="goodsVo" parameterType="goodsVo">
+			  		SELECT
+			 		 goods.*,
+				  goodstype.typename AS tname
+				FROM goods,
+				  goodstype
+			<where> 
+			
+				goods.typeid = goodstype.id
+				<if test="name!=null and name !=''">
+					and goods.name like '%${name}%'
+				</if>
+				<if test="createtime1!=null">
+					and goods.createtime &gt;=#{createtime1}
+				</if>
+				<if test="createtime2!=null">
+					and goods.createtime &lt;=#{createtime2}
+				</if>
+				<if test="typeid!=null and typeid!=''">
+					and goods.typeid = #{typeid}
+				</if>
+			</where>
+  	</select>
+  
+</mapper>
